@@ -1,0 +1,250 @@
+method 
+
+Data Definition Language (DDL)
+These SQL commands deal with the structure (schema) of the database:
+
+CREATE: Creates a new table, view, index, or other database objects.
+
+CREATE TABLE
+CREATE DATABASE
+CREATE VIEW
+CREATE INDEX
+CREATE PROCEDURE
+ALTER: Modifies an existing database object, such as a table or view.
+
+ALTER TABLE
+ALTER DATABASE
+ALTER COLUMN
+DROP: Deletes an existing database object.
+
+DROP TABLE
+DROP DATABASE
+DROP VIEW
+DROP INDEX
+DROP PROCEDURE
+TRUNCATE: Removes all rows from a table, but the table structure remains intact.
+
+TRUNCATE TABLE
+RENAME: Changes the name of an existing database object.
+
+RENAME TABLE
+Data Manipulation Language (DML)
+These SQL commands are used to manipulate data within database tables:
+
+SELECT: Retrieves data from one or more tables.
+
+SELECT
+SELECT DISTINCT
+INSERT: Adds new data into a table.
+
+INSERT INTO
+INSERT VALUES
+UPDATE: Modifies existing data in a table.
+
+UPDATE
+DELETE: Deletes data from a table.
+
+DELETE FROM
+DELETE WHERE
+Data Control Language (DCL)
+These commands are used to control access to data in the database:
+
+GRANT: Gives specific privileges to users or roles.
+
+GRANT PRIVILEGES
+GRANT SELECT, INSERT
+REVOKE: Removes privileges from users or roles.
+
+REVOKE PRIVILEGES
+Transaction Control Language (TCL)
+These commands are used to manage the changes made by DML commands and control the transaction behavior:
+
+COMMIT: Saves all changes made during the current transaction.
+
+COMMIT
+ROLLBACK: Undoes changes made during the current transaction.
+
+ROLLBACK
+SAVEPOINT: Sets a point within a transaction to which you can later roll back.
+
+SAVEPOINT
+SET TRANSACTION: Sets the properties of the current transaction.
+
+SET TRANSACTION
+Data Query Language (DQL)
+These commands are used for querying data:
+
+SELECT: Retrieves data from the database.
+SELECT
+SELECT INTO (for creating a new table with the query result)
+SELECT JOIN (joins two or more tables)
+Constraints
+Constraints define rules for the data in a table:
+
+PRIMARY KEY: Uniquely identifies each record in a table.
+
+PRIMARY KEY
+FOREIGN KEY: Ensures referential integrity between two tables.
+
+FOREIGN KEY
+UNIQUE: Ensures all values in a column are unique.
+
+UNIQUE
+CHECK: Ensures that all values in a column satisfy a condition.
+
+CHECK
+DEFAULT: Sets a default value for a column when no value is provided.
+
+DEFAULT
+NOT NULL: Ensures that a column cannot have a NULL value.
+
+NOT NULL
+Other SQL Operations
+JOIN: Combines rows from two or more tables based on a related column.
+
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL OUTER JOIN
+CROSS JOIN
+GROUP BY: Groups rows that have the same values into summary rows.
+
+GROUP BY
+HAVING: Sets a condition on groups created by GROUP BY.
+
+HAVING
+ORDER BY: Sorts the result set of a query by one or more columns.
+
+ORDER BY
+LIMIT: Limits the number of rows returned by a query.
+
+LIMIT
+DISTINCT: Removes duplicate values from the result set.
+
+DISTINCT
+IN: Checks if a value exists in a set of values.
+
+IN
+BETWEEN: Filters data within a specified range.
+
+BETWEEN
+LIKE: Searches for a specified pattern in a column.
+
+LIKE
+IS NULL: Checks for NULL values in a column.
+
+IS NULL
+EXISTS: Checks if a subquery returns any results.
+
+EXISTS
+UNION: Combines the result set of two or more SELECT queries.
+
+UNION
+SUBQUERY: A query nested inside another query.
+
+SELECT in a subquery
+This list includes the basic SQL operations, but depending on the database system (like MySQL, PostgreSQL, SQL Server, etc.), there may be additional methods and functions available.
+
+
+function
+
+In SQL, there are several types of methods and functions you can use for various purposes. Here’s a breakdown of the most commonly used SQL methods categorized by their function:
+
+1. Aggregate Functions
+These functions perform calculations on multiple rows of a single column:
+
+COUNT(): Returns the number of rows.
+SUM(): Returns the total sum of a numeric column.
+AVG(): Returns the average value of a numeric column.
+MIN(): Returns the smallest value in a column.
+MAX(): Returns the largest value in a column.
+2. String Functions
+These functions perform operations on string data:
+
+CONCAT(): Concatenates two or more strings.
+LENGTH() / CHAR_LENGTH(): Returns the length of a string.
+UPPER(): Converts a string to uppercase.
+LOWER(): Converts a string to lowercase.
+SUBSTRING(): Extracts a substring from a string.
+TRIM(): Removes leading and trailing spaces from a string.
+REPLACE(): Replaces occurrences of a substring within a string.
+LIKE: Used for pattern matching in strings.
+3. Date and Time Functions
+These functions are used to manipulate date and time values:
+
+NOW(): Returns the current date and time.
+CURDATE(): Returns the current date.
+CURTIME(): Returns the current time.
+DATE(): Extracts the date part of a datetime value.
+YEAR(), MONTH(), DAY(): Extract the year, month, and day from a date.
+DATE_ADD() / DATE_SUB(): Adds or subtracts a time interval to/from a date.
+DATEDIFF(): Returns the difference between two dates in days.
+4. Mathematical Functions
+These functions perform mathematical operations:
+
+ROUND(): Rounds a number to a specified number of decimal places.
+CEIL() / CEILING(): Rounds a number up to the nearest integer.
+FLOOR(): Rounds a number down to the nearest integer.
+ABS(): Returns the absolute value of a number.
+POWER(): Raises a number to the power of another number.
+SQRT(): Returns the square root of a number.
+RAND(): Returns a random floating-point value.
+5. Conditional Functions
+These functions perform conditional operations:
+
+IF(): Returns one value if a condition is true, and another value if false.
+CASE: A more complex conditional statement that returns different results based on conditions.
+6. Null Handling Functions
+These functions handle NULL values:
+
+IS NULL: Checks if a value is NULL.
+IS NOT NULL: Checks if a value is not NULL.
+COALESCE(): Returns the first non-null value from a list of expressions.
+IFNULL(): Returns the second argument if the first argument is NULL.
+7. Conversion Functions
+These functions are used to convert data types:
+
+CAST(): Converts one data type to another.
+CONVERT(): Converts a value to a different data type.
+8. Window Functions
+These functions allow performing calculations across a set of table rows related to the current row:
+
+ROW_NUMBER(): Assigns a unique number to each row within a result set.
+RANK(): Returns the rank of a row within a result set.
+DENSE_RANK(): Similar to RANK(), but with no gaps in ranking.
+NTILE(): Divides a result set into a specified number of groups.
+9. Set Operations
+These operations combine results from multiple queries:
+
+UNION: Combines the result sets of two queries, removing duplicates.
+UNION ALL: Combines the result sets of two queries, keeping duplicates.
+INTERSECT: Returns the common rows between two queries.
+EXCEPT: Returns rows from the first query that are not in the second.
+10. Joins
+SQL join methods are used to combine data from multiple tables:
+
+INNER JOIN: Returns rows when there is a match in both tables.
+LEFT JOIN / LEFT OUTER JOIN: Returns all rows from the left table and matched rows from the right table.
+RIGHT JOIN / RIGHT OUTER JOIN: Returns all rows from the right table and matched rows from the left table.
+FULL JOIN / FULL OUTER JOIN: Returns all rows when there is a match in either table.
+11. Subqueries
+A subquery is a query within another query, used to filter data:
+
+Scalar Subquery: Returns a single value.
+Row Subquery: Returns a single row.
+Table Subquery: Returns a table.
+12. Transactions
+Transactions manage changes to data:
+
+BEGIN TRANSACTION: Starts a transaction.
+COMMIT: Commits a transaction (makes changes permanent).
+ROLLBACK: Reverts a transaction (undoes changes).
+These are just some of the common methods and functions in SQL. SQL is quite flexible, and you can combine multiple methods for more complex queries
+
+
+
+
+
+
+
+
