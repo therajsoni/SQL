@@ -1,0 +1,293 @@
+MongoDB Aggregation Stages
+1. $match
+Filters documents to pass only those that match specified conditions, similar to a SQL WHERE clause.
+Syntax:
+javascript
+Copy code
+{ $match: { field: { $operator: value } } }
+2. $group
+Groups input documents by a specified identifier and applies accumulators (e.g., $sum, $avg) to each group.
+Syntax:
+javascript
+Copy code
+{ $group: { _id: "$field", total: { $sum: "$amount" }, average: { $avg: "$amount" } } }
+3. $project
+Reshapes documents by including, excluding, or computing new fields.
+Syntax:
+javascript
+Copy code
+{ $project: { field1: 1, field2: 1, newField: { $multiply: ["$field1", 2] } } }
+4. $sort
+Sorts documents by a specified field in ascending or descending order.
+Syntax:
+javascript
+Copy code
+{ $sort: { field: 1 } }  // 1 for ascending, -1 for descending
+5. $limit
+Limits the number of documents passed to the next stage.
+Syntax:
+javascript
+Copy code
+{ $limit: 5 }
+6. $skip
+Skips a specified number of documents and passes the rest to the next stage.
+Syntax:
+javascript
+Copy code
+{ $skip: 10 }
+7. $unwind
+Deconstructs an array field from the documents and outputs a document for each element of the array.
+Syntax:
+javascript
+Copy code
+{ $unwind: "$arrayField" }
+8. $lookup
+Performs a left outer join with another collection.
+Syntax:
+javascript
+Copy code
+{ $lookup: { from: "otherCollection", localField: "field", foreignField: "field", as: "outputArray" } }
+9. $addFields
+Adds new fields to documents.
+Syntax:
+javascript
+Copy code
+{ $addFields: { newField: "value", calculatedField: { $sum: ["$field1", "$field2"] } } }
+10. $replaceRoot
+Replaces the root document with a specified sub-document.
+Syntax:
+javascript
+Copy code
+{ $replaceRoot: { newRoot: "$subDocument" } }
+11. $count
+Counts the number of documents and outputs the count as a single document.
+Syntax:
+javascript
+Copy code
+{ $count: "countField" }
+12. $facet
+Processes multiple aggregation pipelines within a single stage to produce a multi-faceted output.
+Syntax:
+javascript
+Copy code
+{
+  $facet: {
+    facet1: [{ $match: { ... } }, { $group: { ... } }],
+    facet2: [{ $sort: { ... } }, { $limit: 5 }]
+  }
+}
+13. $bucket
+Categorizes documents into groups called buckets based on a specified field.
+Syntax:
+javascript
+Copy code
+{
+  $bucket: {
+    groupBy: "$field",
+    boundaries: [0, 100, 200, 300],
+    default: "Other",
+    output: { count: { $sum: 1 } }
+  }
+}
+14. $bucketAuto
+Automatically categorizes documents into a specified number of buckets based on field values.
+Syntax:
+javascript
+Copy code
+{
+  $bucketAuto: {
+    groupBy: "$field",
+    buckets: 5,
+    output: { count: { $sum: 1 }, average: { $avg: "$field" } }
+  }
+}
+15. $sortByCount
+Groups documents by a specified field and sorts them by count.
+Syntax:
+javascript
+Copy code
+{ $sortByCount: "$field" }
+16. $addToSet
+Adds each unique value of a field to an array.
+Syntax:
+javascript
+Copy code
+{ $addToSet: "$field" }
+17. $out
+Writes the result of the aggregation pipeline to a specified collection.
+Syntax:
+javascript
+Copy code
+{ $out: "outputCollection" }
+18. $merge
+Merges the output of the aggregation pipeline into a specified collection.
+Syntax:
+javascript
+Copy code
+{
+  $merge: {
+    into: "targetCollection",
+    on: "_id",
+    whenMatched: "merge",
+    whenNotMatched: "insert"
+  }
+}
+Common Aggregation Operators
+Arithmetic Operators
+$add: Adds numbers together.
+$subtract: Subtracts numbers.
+$multiply: Multiplies numbers.
+$divide: Divides numbers.
+$mod: Returns the remainder of the division.
+Array Operators
+$arrayElemAt: Returns element at a specific array index.
+$concatArrays: Concatenates arrays.
+$filter: Filters array elements.
+$in: Checks if a value exists in an array.
+Comparison Operators
+$eq: Checks for equality.
+$gt / $gte: Checks if greater than / greater than or equal to.
+$lt / $lte: Checks if less than / less than or equal to.
+$ne: Checks if not equal.
+String Operators
+$concat: Concatenates strings.
+$substr: Extracts substring.
+$toLower / $toUpper: Converts to lower/upper case.
+$trim: Removes whitespace.
+Date Operators
+$dayOfMonth: Gets day of the month.
+$month: Gets month.
+$year: Gets year.
+$dateToString: Formats date to string.
+Conditional Operators
+$cond: If-then-else structure.
+$ifNull: Returns a value if the field is null.
+Set Operators
+$setUnion: Combines arrays without duplicates.
+$setIntersection: Returns common elements of arrays.
+$setDifference: Returns unique elements of the first array.
+Miscellaneous Operators
+$type: Returns the BSON type of a field.
+$literal: Used to include a literal value.
+
+
+
+MongoDB Native Methods
+1. Database Management
+use <database>: Switches to a specific database.
+show dbs: Lists all databases.
+db.dropDatabase(): Drops the current database.
+db.getName(): Retrieves the name of the current database.
+db.stats(): Returns statistics for the current database.
+2. Collection Management
+db.createCollection(name, options): Creates a new collection.
+db.getCollectionNames(): Lists collections in the database.
+db.collection.drop(): Drops a specific collection.
+db.collection.renameCollection(newName): Renames a collection.
+db.collection.stats(): Retrieves stats on the collection.
+show collections: Lists all collections.
+3. CRUD Operations
+Insert
+db.collection.insertOne(doc): Inserts a single document.
+db.collection.insertMany(docs): Inserts multiple documents.
+Query (Read)
+db.collection.find(query, projection): Finds documents matching a query.
+db.collection.findOne(query, projection): Finds a single document.
+db.collection.countDocuments(query): Counts documents matching a query.
+db.collection.distinct(field, query): Returns distinct values for a field.
+Update
+db.collection.updateOne(filter, update, options): Updates the first document matching the filter.
+db.collection.updateMany(filter, update, options): Updates all matching documents.
+db.collection.replaceOne(filter, replacement, options): Replaces the document.
+Delete
+db.collection.deleteOne(filter): Deletes the first document matching the filter.
+db.collection.deleteMany(filter): Deletes all matching documents.
+4. Aggregation
+db.collection.aggregate(pipeline, options): Runs an aggregation pipeline.
+Stages include:
+$match: Filters documents.
+$group: Groups documents.
+$sort: Sorts documents.
+$project: Reshapes the documents.
+$lookup: Joins collections.
+5. Indexing
+db.collection.createIndex(keys, options): Creates an index.
+db.collection.getIndexes(): Lists indexes.
+db.collection.dropIndex(index): Drops a specific index.
+db.collection.dropIndexes(): Drops all indexes.
+6. Bulk Write
+db.collection.bulkWrite(operations, options): Performs bulk operations.
+Supports insert, update, replace, and delete operations.
+7. Other Utility Methods
+db.collection.validate(): Checks collection structure for errors.
+db.collection.watch(): Sets up a change stream.
+db.collection.stats(): Retrieves collection statistics.
+db.collection.explain(): Provides details on how MongoDB will execute a query.
+Mongoose Methods
+Mongoose wraps MongoDB methods and offers additional functionality to handle data modeling, validation, and querying in a more structured way.
+
+1. Schema Definition
+new mongoose.Schema(definition, options): Defines a schema for a collection.
+Schema options include:
+timestamps: Adds createdAt and updatedAt timestamps.
+toObject / toJSON: Customize how documents are serialized.
+2. Model Creation
+mongoose.model(name, schema): Creates a model based on a schema.
+3. Document Methods
+Insert
+Model.create(doc): Shortcut for inserting a single document.
+Model.insertMany(docs, options): Inserts multiple documents.
+doc.save(): Saves a new or modified document.
+Query (Read)
+Model.find(query, projection): Finds multiple documents.
+Model.findOne(query, projection): Finds a single document.
+Model.findById(id, projection): Finds a document by _id.
+Model.countDocuments(query): Counts matching documents.
+Model.distinct(field, query): Gets distinct values for a field.
+Model.findOneAndDelete(filter, options): Finds and deletes a single document.
+Model.findOneAndRemove(filter, options): Alias for findOneAndDelete.
+Model.findOneAndUpdate(filter, update, options): Finds a document and updates it.
+Model.findByIdAndUpdate(id, update, options): Finds by _id and updates.
+Update
+Model.updateOne(filter, update, options): Updates a single document.
+Model.updateMany(filter, update, options): Updates multiple documents.
+Delete
+Model.deleteOne(filter): Deletes a single document.
+Model.deleteMany(filter): Deletes multiple documents.
+Model.findByIdAndDelete(id): Finds by _id and deletes.
+4. Schema Methods and Virtuals
+Schema Methods
+schema.methods.methodName = function(...) {...}: Adds instance methods.
+schema.statics.methodName = function(...) {...}: Adds static methods for the model.
+Virtuals
+schema.virtual(propertyName): Creates a virtual property.
+virtual.get(function): Defines a getter.
+virtual.set(function): Defines a setter.
+5. Validation
+schema.path('field').validate(validator, message): Custom validator.
+schema.pre('save', function): Middleware that runs before a document is saved.
+6. Middleware (Hooks)
+schema.pre('save', function): Runs before save.
+schema.post('save', function): Runs after save.
+schema.pre('remove', function): Runs before document removal.
+schema.post('remove', function): Runs after removal.
+7. Population
+Model.populate(docs, options): Populates referenced documents in a query.
+doc.populate(field): Populates references in a single document.
+8. Aggregation and Lean Queries
+Aggregation
+Model.aggregate(pipeline): Runs an aggregation pipeline.
+Uses stages such as $match, $group, $sort, etc.
+Lean
+Model.find().lean(): Returns plain JavaScript objects instead of Mongoose documents, useful for performance.
+9. Indexing
+schema.index(fields, options): Defines an index on fields.
+10. Utility Functions
+doc.toObject(): Converts a document to a plain JavaScript object.
+doc.toJSON(): Converts a document to JSON.
+doc.populate(): Populates fields in the document.
+Model.watch(): Opens a change stream.
+11. Connection and Utility
+mongoose.connect(uri, options): Connects to MongoDB.
+mongoose.disconnect(): Disconnects from MongoDB.
+mongoose.connection.on('event', callback): Sets up event listeners (e.g., open, error).
